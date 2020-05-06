@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, Component } from "react";
 import classNames from "classnames";
+import { Button } from "./Button";
 import "./Panel.scss";
 
 export const Panel = forwardRef(
@@ -33,3 +34,25 @@ export const PanelContent = forwardRef(
     </div>
   )
 );
+
+export class PanelContainer extends Component {
+  constructor(props){
+    super();
+    this.state = {
+      fetchEndpoint: props.fetchEndpoint,
+      sendEndpoint: props.sendEndpoint,
+      title: props.title,
+      color: props.color
+    };
+  }
+
+  render(){
+    return <div className="col">
+    <Button color={this.state.color}>Ask for help</Button>
+    <Panel color={this.state.color}>
+      <PanelTitle>Help needed</PanelTitle>
+      <PanelContent>test</PanelContent>
+    </Panel>
+  </div>
+  }
+}
