@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./components/Button";
 import "./App.scss";
-import { Panel, PanelTitle, PanelContent } from "./components/Panel";
+import { Panel, PanelTitle, PanelContent, PanelContainer } from "./components/Panel";
 
 function App() {
   return (
@@ -15,20 +15,8 @@ function App() {
         </p>
       </header>
       <div className="row">
-        <div className="col">
-          <Button color="blue">Ask for help</Button>
-          <Panel color="blue">
-            <PanelTitle>Help needed</PanelTitle>
-            <PanelContent>test</PanelContent>
-          </Panel>
-        </div>
-        <div className="col">
-          <Button color="purple">I want help</Button>
-          <Panel color="purple">
-            <PanelTitle>Help offered</PanelTitle>
-            <PanelContent>test</PanelContent>
-          </Panel>
-        </div>
+        <PanelContainer fetchEndpoint="localhost:3003" fetchEndpoint="localhost:3003" title="Helpers Panel" color="blue"></PanelContainer>
+        <PanelContainer fetchEndpoint="localhost:3003" fetchEndpoint="localhost:3003" title="Helpers Panel" color="purple"></PanelContainer>
       </div>
     </div>
   );
