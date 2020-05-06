@@ -1,0 +1,24 @@
+.panel {
+  border-radius: 6px;
+  padding: 16px;
+  width: 100%;
+
+  .panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0px;
+  }
+
+  .panel-content {
+    padding-top: 36px;
+  }
+
+  &.panel-blue {
+    background: #4285f4;
+  }
+
+  &.panel-purple {
+    background: #8642f4;
+  }
+}

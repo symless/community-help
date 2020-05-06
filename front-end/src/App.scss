@@ -1,0 +1,120 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("./assets/ProximaNova-Regular.otf");
+}
+
+@font-face {
+  font-family: "Leckerli One";
+  src: url("./assets/LeckerliOne-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("./assets/SourceSansPro-Regular.ttf");
+}
+
+.title {
+  margin-top: 143px;
+  margin-bottom: 0px;
+}
+
+.sub-title {
+  margin-top: 76px;
+  margin-bottom: 0px;
+}
+
+.phrase {
+  margin-top: 21px;
+  margin-bottom: 55px;
+}
+
+h1 {
+  font-family: Leckerli One;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 76px;
+  line-height: 44px;
+  /* or 58% */
+
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 44px;
+  /* or 69% */
+
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 44px;
+  /* or 122% */
+
+  letter-spacing: -0.5px;
+}
+
+p {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  /* identical to box height, or 133% */
+
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.App {
+  color: white;
+
+  .background-gradiant {
+    position: absolute;
+    width: 100%;
+    height: 600px;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+
+    background: radial-gradient(
+      61.5% 61.5% at 50% 38.5%,
+      #3658ac 0%,
+      #203b7e 100%
+    );
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .col {
+    width: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+
+    & > .btn {
+      margin-bottom: 32px;
+    }
+  }
+}

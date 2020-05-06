@@ -1,24 +1,36 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 
-import Panel from "./_components/Panel";
+import { Button } from "./components/Button";
+import "./App.scss";
+import { Panel, PanelTitle, PanelContent } from "./components/Panel";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+      <div className="background-gradiant" />
+      <header>
+        <h1 className="title">Help?</h1>
+        <h2 className="sub-title">Welcome to...</h2>
+        <p className="phrase">
+          a place where people in the community can help others and get help.
         </p>
-        <Panel
-          title="hello"
-          color="blue"
-          RequestEndPoint="locaalhost"
-          FetchEndPoint="localhost"
-        />
       </header>
+      <div className="row">
+        <div className="col">
+          <Button color="blue">Ask for help</Button>
+          <Panel color="blue">
+            <PanelTitle>Help needed</PanelTitle>
+            <PanelContent>test</PanelContent>
+          </Panel>
+        </div>
+        <div className="col">
+          <Button color="purple">I want help</Button>
+          <Panel color="purple">
+            <PanelTitle>Help offered</PanelTitle>
+            <PanelContent>test</PanelContent>
+          </Panel>
+        </div>
+      </div>
     </div>
   );
 }
