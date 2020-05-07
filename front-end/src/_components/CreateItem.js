@@ -1,5 +1,8 @@
 import React from "react";
 import { Modal } from "../components/Modal";
+import {Panel, PanelTitle, PanelContent} from "../components/Panel"
+import { TextInput } from "../components/TextInput";
+import { VerticalForm, LabeledInput } from "../components/VerticalForm";
 
 /*  Login Component:
     TODO: needs followi
@@ -50,7 +53,29 @@ export default class CreateItemComponent extends React.Component {
           this.props.funcs.displayCreate();
         }}
       >
-        Create Item
+        <Panel color="blue">
+          <PanelTitle>Help needed</PanelTitle>
+          <PanelContent>
+            <VerticalForm>
+              <TextInput
+                placeholder="Describe what you need?"
+                type="textarea"
+              />
+              <LabeledInput title="Name">
+                <TextInput placeholder="Your Name" />
+              </LabeledInput>
+              <LabeledInput title="Post code">
+                <TextInput placeholder="Post code" />
+              </LabeledInput>
+              <LabeledInput title="House name/no">
+                <TextInput placeholder="House name or number" />
+              </LabeledInput>
+              <LabeledInput title="Phone number">
+                <TextInput placeholder="Contact number" />
+              </LabeledInput>
+            </VerticalForm>
+          </PanelContent>
+        </Panel>
       </Modal>
     );
   }

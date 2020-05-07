@@ -325,4 +325,4 @@ class App extends React.Component {
   }
 }
 
-export default App1;
+export default App;
