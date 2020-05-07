@@ -14,7 +14,7 @@
 // Implemented in interview by Jamie Newbon on 27/09/2019
 //------------------------------------------------------------------------------
 //
-// Example: HTTP server, synchronous
+// Example: HTTP Server, synchronous
 //
 //------------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ private:
         }
     };
 
-// Handles an HTTP server connection
+// Handles an HTTP Server connection
     static void
     do_session(
         tcp::socket& socket,

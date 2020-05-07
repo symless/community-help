@@ -6,10 +6,14 @@ import { Panel, PanelTitle, PanelContent } from "./components/Panel";
 import { Task } from "./components/Task";
 
 import PanelComponent from "./_components/Panel";
+import AuthComponent from "./_components/Auth";
+import DetailLayoverComponent from "./_components/DetailLayover";
 import { Modal } from "./components/Modal";
 import { TextInput } from "./components/TextInput";
 import { VerticalForm, LabeledInput } from "./components/VerticalForm";
+import CreateItemComponent from "./_components/CreateItem";
 
+// Status: 0=Open, 1=In Progress, 2=Closed
 const PanelData = {
   helps: {
     title: "Ask for Help",
@@ -18,10 +22,28 @@ const PanelData = {
     fetchEndPoint: "help_requests/",
     itemsObjList: [
       {
-        Title: "Task 1",
-        Description: "Description...",
-        ButtonTitle: "Button 1",
+        Title: "Help Needed in shopping",
+        Description: "Help shopping groceries",
+        ButtonTitle: "Help!",
         ItemID: 1,
+        personalContact: "12341234",
+        status: 0,
+      },
+      {
+        Title: "Help Picking up Medicines",
+        Description: "I Need someone to fetch some medicines at the drugstore",
+        ButtonTitle: "Help!",
+        ItemID: 2,
+        personalContact: "43214321",
+        status: 0,
+      },
+      {
+        Title: "Assistance with Math Education",
+        Description: "I need someone to teach me math!",
+        ButtonTitle: "Help!",
+        ItemID: 1,
+        personalContact: "3141564",
+        status: 0,
       },
     ],
   },
@@ -32,10 +54,29 @@ const PanelData = {
     fetchEndPoint: "assistance_provided/",
     itemsObjList: [
       {
-        Title: "Offer 1",
-        Description: "Description...",
-        ButtonTitle: "Button 1",
+        Title: "Going Shopping on Saturday",
+        Description:
+          "I'm going to the groceries store on Saturday. Let me know if I can fetch you anything!",
+        ButtonTitle: "Ask!",
         ItemID: 1,
+        personalContact: "12341234",
+        status: 0,
+      },
+      {
+        Title: "Math Classes",
+        Description: "I have some spare time to assist with math education!",
+        ButtonTitle: "Ask!",
+        ItemID: 2,
+        personalContact: "123581321",
+        status: 0,
+      },
+      {
+        Title: "Violin Classes",
+        Description: "I am offering violin lessons via video call.",
+        ButtonTitle: "Ask!",
+        ItemID: 3,
+        personalContact: "34125621",
+        status: 0,
       },
     ],
   },
@@ -144,10 +185,10 @@ function App1() {
 }
 
 // DAUN: App2() to test out my panels components
-export function AppDisplay({ funcs, ...props }) {
+export function AppDisplay({ selectedItem, funcs, ...props }) {
   return (
     <div className="App">
-      {props.userInfo ? (
+      {props.userInfo.username ? (
         <div>{/* TODO: create component for userinfo */}</div>
       ) : (
         <div>{/* TODO: Create component for login and register */}</div>
@@ -162,18 +203,40 @@ export function AppDisplay({ funcs, ...props }) {
       </header>
       <div className="row">
         <div className="col">
-          <Button color="blue">Ask for help</Button>
+          <Button
+            color="blue"
+            onClick={() => {
+              funcs.displayCreate("Help");
+            }}
+          >
+            Ask for help
+          </Button>
           <PanelComponent funcs={funcs} data={PanelData.helps}></PanelComponent>
         </div>
         <div className="col">
-          <Button color="purple">I want help</Button>
-          <PanelComponent data={PanelData.offers}></PanelComponent>
+          <Button
+            color="purple"
+            onClick={() => {
+              funcs.displayCreate("Offer");
+            }}
+          >
+            I want help
+          </Button>
+          <PanelComponent
+            funcs={funcs}
+            data={PanelData.offers}
+          ></PanelComponent>
         </div>
       </div>
-      {!props.userInfo && (
-        <div>
-          {/* TODO: if the user is not logged in, main page should contain Auth; otherwise, dont */}
-        </div>
+      {props.PopType == 1 && <AuthComponent funcs={funcs} />}
+      {props.PopType == 2 && (
+        <DetailLayoverComponent
+          funcs={funcs}
+          item={selectedItem}
+        ></DetailLayoverComponent>
+      )}
+      {props.PopType == 3 && (
+        <CreateItemComponent funcs={funcs}></CreateItemComponent>
       )}
     </div>
   );
@@ -186,15 +249,32 @@ class App extends React.Component {
     this.state = {
       user: {},
       didAuth: false,
-      loginPop: false,
+      PopType: 2,
+      selectedItem: {
+        type: "Request",
+        obj: {},
+      },
     };
-    this.Auth = {
+    this.funcs = {
       needLogin: this.needLogin,
       setLogin: this.setLogin,
       displayLogin: this.displayLogin,
+      displayCreate: this.displayCreate,
       logout: this.logout,
+      displayDetail: this.displayDetail,
     };
   }
+
+  /// this function will be passed to panelItem.
+  displayDetail = (obj) => {
+    this.state.selectedItem.obj = obj;
+    this.setState({ selectedItem: this.state.selectedItem });
+    if (this.state.PopType == 2) {
+      this.setState({ PopType: 0 });
+    } else {
+      this.setState({ PopType: 2 });
+    }
+  };
 
   /// this function will be passed on to loginComponent
   setLogin = (user) => {
@@ -202,13 +282,26 @@ class App extends React.Component {
     this.setState({ didAuth: true });
   };
 
-  logout = () => {
+  logout = (value) => {
     // TODO: send request to logout
+    console.log("LOGOUT REQUESTED", value);
   };
 
   // this function will be called by children to initiate login.
   displayLogin = () => {
-    this.setState({ loginPop: true });
+    if (this.state.PopType == 1) {
+      this.setState({ PopType: 0 });
+    } else {
+      this.setState({ PopType: 1 });
+    }
+  };
+
+  displayCreate = (value) => {
+    if (this.state.PopType == 3) {
+      this.setState({ PopType: 0 });
+    } else {
+      this.setState({ PopType: 3 });
+    }
   };
 
   // this function will be called by child component (in AppDisplay) to check the Auth State
@@ -221,7 +314,14 @@ class App extends React.Component {
   };
 
   render() {
-    return <AppDisplay userInfo={this.state.user} funcs={this.Auth} />;
+    return (
+      <AppDisplay
+        userInfo={this.state.user}
+        funcs={this.funcs}
+        PopType={this.state.PopType}
+        selectedItem={this.state.selectedItem}
+      />
+    );
   }
 }
 

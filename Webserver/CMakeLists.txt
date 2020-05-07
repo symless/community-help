@@ -20,7 +20,7 @@ cmake_policy(SET CMP0074 NEW)
 
 set(Boost_USE_STATIC_LIBS        ON)
 
-find_package(Boost 1.71 REQUIRED COMPONENTS
+find_package(Boost 1.65 REQUIRED COMPONENTS
               system thread)
 			  
 IF(Boost_FOUND)

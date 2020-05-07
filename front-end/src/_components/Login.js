@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Panel, PanelTitle, PanelContent } from "../components/Panel";
+
 /*  Login Component:
     TODO: needs followi
 
@@ -34,9 +36,11 @@ export default class LoginComponent extends React.Component {
   }
 
   // Login function sends request on the form
-  login = (form) => {};
+  requestLogin = () => {
+    this.props.funcs(this.state.loginForm);
+  };
 
   render() {
-    return <div>{/* TODO: add input form with username and password */}</div>;
+    return <Panel color={"purple"}></Panel>;
   }
 }

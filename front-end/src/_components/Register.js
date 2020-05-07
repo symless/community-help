@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Panel, PanelTitle, PanelContent } from "../components/Panel";
+
 /*  Login Component:
     TODO: needs followi
 
@@ -34,9 +36,11 @@ export default class RegisterComponent extends React.Component {
     };
   }
 
-  register = (form) => {};
+  requestRegister = () => {
+    this.props.funcs(this.state.registerForm);
+  };
 
   render() {
-    return <div>{/* TODO: make Register form and button  */}</div>;
+    return <Panel color={"purple"}></Panel>;
   }
 }
