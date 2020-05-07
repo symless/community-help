@@ -93,8 +93,7 @@ export default class PanelComponent extends React.Component {
                 itemObj={item}
                 key={key}
                 onClick={(selectedObj) => {
-                  console.log("CAAAAALBACK 1:", selectedObj);
-                  // this.props.funcs.popup(selectedObj);
+                  this.props.funcs.displayDetail(selectedObj);
                 }}
               />
             );

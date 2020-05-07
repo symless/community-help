@@ -1,4 +1,5 @@
 import React from "react";
+import { Modal } from "../components/Modal";
 
 /*  Login Component:
     TODO: needs followi
@@ -30,6 +31,15 @@ export default class CreateItemComponent extends React.Component {
   componentWillMount() {}
 
   render() {
-    return <div></div>;
+    return (
+      <Modal
+        active={true}
+        onDismiss={() => {
+          this.props.funcs.displayCreate();
+        }}
+      >
+        Create Item
+      </Modal>
+    );
   }
 }

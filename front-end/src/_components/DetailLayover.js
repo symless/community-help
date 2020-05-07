@@ -1,4 +1,5 @@
 import React from "react";
+import { Modal } from "../components/Modal";
 
 /*  DetailLayoverComponent
     This page will have 2 states; 1 being help detail, 1 being offer detail
@@ -22,11 +23,11 @@ export default class DetailLayoverComponent extends React.Component {
 
   componentWillMount() {
     console.log("DetailLayoverComponent", this.props.item);
-    if (this.props.item.type == "Request") {
-      this.setState({ isRequest: true });
-    } else {
-      this.setState({ isRequest: false });
-    }
+    // if (this.props.item.type == "Request") {
+    //   this.setState({ isRequest: true });
+    // } else {
+    //   this.setState({ isRequest: false });
+    // }
   }
 
   sendRequest() {
@@ -38,6 +39,15 @@ export default class DetailLayoverComponent extends React.Component {
   }
 
   render() {
-    return <div>{/* TODO: develop this */}</div>;
+    return (
+      <Modal
+        active={true}
+        onDismiss={() => {
+          this.props.funcs.displayDetail();
+        }}
+      >
+        Detail
+      </Modal>
+    );
   }
 }

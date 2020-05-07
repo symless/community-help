@@ -9,6 +9,7 @@ import PanelComponent from "./_components/Panel";
 import AuthComponent from "./_components/Auth";
 import DetailLayoverComponent from "./_components/DetailLayover";
 import { Modal } from "./components/Modal";
+import CreateItemComponent from "./_components/CreateItem";
 
 const PanelData = {
   helps: {
@@ -156,8 +157,6 @@ function App1() {
 
 // DAUN: App2() to test out my panels components
 export function AppDisplay({ funcs, ...props }) {
-  const [active, setModalActive] = useState(false);
-
   return (
     <div className="App">
       {props.userInfo.username ? (
@@ -175,15 +174,38 @@ export function AppDisplay({ funcs, ...props }) {
       </header>
       <div className="row">
         <div className="col">
-          <Button color="blue">Ask for help</Button>
+          <Button
+            color="blue"
+            onClick={() => {
+              funcs.displayCreate("Help");
+            }}
+          >
+            Ask for help
+          </Button>
           <PanelComponent funcs={funcs} data={PanelData.helps}></PanelComponent>
         </div>
         <div className="col">
-          <Button color="purple">I want help</Button>
-          <PanelComponent data={PanelData.offers}></PanelComponent>
+          <Button
+            color="purple"
+            onClick={() => {
+              funcs.displayCreate("Offer");
+            }}
+          >
+            I want help
+          </Button>
+          <PanelComponent
+            funcs={funcs}
+            data={PanelData.offers}
+          ></PanelComponent>
         </div>
       </div>
-      {props.loginPop && <AuthComponent funcs={funcs} />}
+      {props.PopType == 1 && <AuthComponent funcs={funcs} />}
+      {props.PopType == 2 && (
+        <DetailLayoverComponent funcs={funcs}></DetailLayoverComponent>
+      )}
+      {props.PopType == 3 && (
+        <CreateItemComponent funcs={funcs}></CreateItemComponent>
+      )}
     </div>
   );
 }
@@ -195,29 +217,30 @@ class App extends React.Component {
     this.state = {
       user: {},
       didAuth: false,
-      loginPop: true,
+      PopType: 2,
       selectedItem: {
         type: "Request",
         obj: {},
       },
     };
-    this.Auth = {
-      someInfo: "info",
+    this.funcs = {
       needLogin: this.needLogin,
       setLogin: this.setLogin,
       displayLogin: this.displayLogin,
+      displayCreate: this.displayCreate,
       logout: this.logout,
-    };
-    this.showDetail = {
-      popup: this.popup,
+      displayDetail: this.displayDetail,
     };
   }
 
   /// this function will be passed to panelItem.
-  popup = (obj) => {
+  displayDetail = (obj) => {
     console.log("App:: PopUp() => ", obj);
-    // this.state.selectedItems.obj = obj;
-    // this.setState({ selectedItems: this.selectedItems });
+    if (this.state.PopType == 2) {
+      this.setState({ PopType: 0 });
+    } else {
+      this.setState({ PopType: 2 });
+    }
   };
 
   /// this function will be passed on to loginComponent
@@ -233,16 +256,19 @@ class App extends React.Component {
 
   // this function will be called by children to initiate login.
   displayLogin = () => {
-    console.log("display Login -> POP");
-    if (this.state.loginPop) {
-      this.setState({ loginPop: false });
+    if (this.state.PopType == 1) {
+      this.setState({ PopType: 0 });
     } else {
-      this.setState({ loginPop: true });
+      this.setState({ PopType: 1 });
     }
   };
 
-  closeLogin = () => {
-    this.setState({ loginPop: false });
+  displayCreate = (value) => {
+    if (this.state.PopType == 3) {
+      this.setState({ PopType: 0 });
+    } else {
+      this.setState({ PopType: 3 });
+    }
   };
 
   // this function will be called by child component (in AppDisplay) to check the Auth State
@@ -254,18 +280,12 @@ class App extends React.Component {
     }
   };
 
-  /// display Detail for either type = "Request" / "Assistance"
-  /// add obj to selected
-  displayPopup = (type, obj) => {
-    console.log("APP.JS:: displayPopup", type, " and ", obj);
-  };
-
   render() {
     return (
       <AppDisplay
         userInfo={this.state.user}
-        funcs={this.Auth}
-        loginPop={this.state.loginPop}
+        funcs={this.funcs}
+        PopType={this.state.PopType}
       />
     );
   }
