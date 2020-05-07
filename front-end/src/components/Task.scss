@@ -1,5 +1,39 @@
 .task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px 9px;
   border-radius: 6px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.task-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.task-title {
+  font-family: Proxima Nova;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.task-sub-title {
+  font-family: Proxima Nova;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .task-blue {
