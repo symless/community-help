@@ -92,6 +92,7 @@ export default class PanelComponent extends React.Component {
                 url={this.state.data.url + this.state.data.fetchEndPoint}
                 itemObj={item}
                 key={key}
+                color={this.state.data.color}
                 onClick={(selectedObj) => {
                   console.log("CAAAAALBACK 1:", selectedObj);
                   this.props.funcs.popup(selectedObj);
