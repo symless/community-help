@@ -60,13 +60,8 @@ int main()
      */
     networking::registerAPICommand("/help", [](const std::string& string)->std::string
     {
-        nlohmann::json json = {};
-        json.push_back("hello World");
-        return json.dump(4);
-        // Process the string to retrieve the proper parameters
-        // retrieves or instatiates the resources to call
-        //return App->help(string)
-
+        nlohmann::json json = nlohmann::json::parse(string);
+        return m_helpServer->postNewHelpRequest(json).dump(4);
     });
 
     /**
