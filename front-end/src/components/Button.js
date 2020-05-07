@@ -8,11 +8,29 @@ import "./Button.scss";
  * Approval: Pending
  */
 export const Button = forwardRef(
-  ({ children, onClick, color = "blue", className, ...props }, ref) => (
+  (
+    {
+      children,
+      onClick,
+      color = "blue",
+      outline = false,
+      size = "md",
+      className,
+      ...props
+    },
+    ref
+  ) => (
     <button
       ref={ref}
       onClick={onClick}
-      className={classNames("btn", { [`btn-${color}`]: color }, className)}
+      className={classNames(
+        "btn",
+        {
+          [`btn-${color}`]: color,
+          [`btn-${size}`]: size,
+        },
+        className
+      )}
       {...props}
     >
       {children}
