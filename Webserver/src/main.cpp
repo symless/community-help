@@ -84,11 +84,9 @@ int main()
      * @brief Logins
      * //TODO: Implement the behavior
      */
-    networking::registerAPICommand("/login", [](const std::string& string)->std::string
+    networking::registerAPICommand("/login", [m_helpServer](const std::string& string)->std::string
     {
-        nlohmann::json json = {};
-        json.push_back("hello World");
-        return json.dump(4);
+        return m_helpServer->login(nlohmann::json::parse(string)).dump(4);
     });
 
     /**
