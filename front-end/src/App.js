@@ -7,6 +7,7 @@ import { Task } from "./components/Task";
 
 import PanelComponent from "./_components/Panel";
 import { Modal } from "./components/Modal";
+import AuthComponent from "./_components/Auth";
 
 const PanelData = {
   helps: {
@@ -152,9 +153,11 @@ function App1() {
 
 // DAUN: App2() to test out my panels components
 export function AppDisplay({ funcs, ...props }) {
+  const [active, setModalActive] = useState(false);
+
   return (
     <div className="App">
-      {props.userInfo ? (
+      {props.userInfo.username ? (
         <div>{/* TODO: create component for userinfo */}</div>
       ) : (
         <div>{/* TODO: Create component for login and register */}</div>
@@ -177,11 +180,7 @@ export function AppDisplay({ funcs, ...props }) {
           <PanelComponent data={PanelData.offers}></PanelComponent>
         </div>
       </div>
-      {!props.userInfo && (
-        <div>
-          {/* TODO: if the user is not logged in, main page should contain Auth; otherwise, dont */}
-        </div>
-      )}
+      {props.loginPop && <AuthComponent funcs={funcs} />}
     </div>
   );
 }
@@ -193,7 +192,7 @@ class App extends React.Component {
     this.state = {
       user: {},
       didAuth: false,
-      loginPop: false,
+      loginPop: true,
     };
     this.Auth = {
       needLogin: this.needLogin,
@@ -215,7 +214,12 @@ class App extends React.Component {
 
   // this function will be called by children to initiate login.
   displayLogin = () => {
-    this.setState({ loginPop: true });
+    console.log("display Login -> POP");
+    if (this.state.loginPop) {
+      this.setState({ loginPop: false });
+    } else {
+      this.setState({ loginPop: true });
+    }
   };
 
   // this function will be called by child component (in AppDisplay) to check the Auth State
@@ -228,7 +232,13 @@ class App extends React.Component {
   };
 
   render() {
-    return <AppDisplay userInfo={this.state.user} funcs={this.Auth} />;
+    return (
+      <AppDisplay
+        userInfo={this.state.user}
+        funcs={this.Auth}
+        loginPop={this.state.loginPop}
+      />
+    );
   }
 }
 

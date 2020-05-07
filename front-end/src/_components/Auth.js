@@ -1,4 +1,8 @@
 import React from "react";
+import { Modal } from "../components/Modal";
+
+import RegisterComponent from "./Register";
+import LoginComponent from "./Login";
 
 /*  Login Component:
     TODO: needs followi
@@ -30,15 +34,28 @@ export default class AuthComponent extends React.Component {
   }
 
   // Login function sends request on the form
-  login = (form) => {};
+  login = (form) => {
+    this.props.funcs.setLogin("hello");
+  };
 
-  register = (form) => {};
+  register = (form) => {
+    this.props.funcs.setRegister("hello");
+  };
 
   render() {
     return (
-      <div>
-        {this.state.isRegister ? <RegisterComponent /> : <LoginComponent />}
-      </div>
+      <Modal
+        active={true}
+        onDismiss={() => {
+          this.props.funcs.displayLogin();
+        }}
+      >
+        {this.state.isRegister ? (
+          <RegisterComponent funcs={this.props.funcs} />
+        ) : (
+          <LoginComponent funcs={this.props.funcs} />
+        )}
+      </Modal>
     );
   }
 }
