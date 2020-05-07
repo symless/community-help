@@ -1,5 +1,8 @@
 import React from "react";
 
+import LoginComponent from "./Login";
+import RegisterComponent from "./Register";
+
 /*  Login Component:
     TODO: needs followi
 
@@ -29,15 +32,30 @@ export default class AuthComponent extends React.Component {
     };
   }
 
-  // Login function sends request on the form
-  login = (form) => {};
+  componentWillMount() {
+    this.props.funcs.logout("hello");
+  }
 
-  register = (form) => {};
+  // login gets passed down to LoginComponent, receives the form
+  // passes the form to parent to send info
+  login = (form) => {
+    console.log("AuthComponent: Login Function input :", form);
+  };
+
+  // register gets passed down to RegisterComponent, receives the form
+  // passes the form to parent to send info
+  register = (form) => {
+    console.log("AuthComponent: Register Function input :", form);
+  };
 
   render() {
     return (
       <div>
-        {this.state.isRegister ? <RegisterComponent /> : <LoginComponent />}
+        {this.state.isRegister ? (
+          <RegisterComponent register={this.register} />
+        ) : (
+          <LoginComponent login={this.login} />
+        )}
       </div>
     );
   }

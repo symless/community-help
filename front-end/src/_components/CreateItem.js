@@ -21,24 +21,15 @@ import React from "react";
 
 */
 
-export default class RegisterComponent extends React.Component {
+export default class CreateItemComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      registerForm: {
-        username: "",
-        password: "",
-        repeat: "",
-        email: "",
-      },
-    };
+    this.state = {};
   }
 
-  requestRegister = () => {
-    this.props.funcs(this.state.registerForm);
-  };
+  componentWillMount() {}
 
   render() {
-    return <div>{/* TODO: make Register form and button  */}</div>;
+    return <div></div>;
   }
 }

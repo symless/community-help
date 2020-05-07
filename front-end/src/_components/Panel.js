@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Panel, PanelTitle } from "../components/Panel";
+import { Panel, PanelTitle, PanelContent } from "../components/Panel";
 
 import PanelItemComponent from "./PanelItem";
 /*
@@ -46,7 +46,7 @@ export default class PanelComponent extends React.Component {
   }
 
   componentWillMount() {
-    console.log("NEEDS LOGIN data:", this.props.funcs);
+    console.log("PANEL.JS: ", this.props.funcs);
     this.setState({ filteredList: this.props.data.itemsObjList });
     console.log(
       "Attempt to send request to:",
@@ -85,16 +85,21 @@ export default class PanelComponent extends React.Component {
     return (
       <Panel color={this.state.data.color}>
         <PanelTitle>{this.state.data.title}</PanelTitle>
-        {this.state.filteredList.map((item, key) => {
-          console.log("item:", item);
-          return (
-            <PanelItemComponent
-              url={this.state.data.url + this.state.data.fetchEndPoint}
-              itemObj={item}
-              key={key}
-            />
-          );
-        })}
+        <PanelContent>
+          {this.state.filteredList.map((item, key) => {
+            return (
+              <PanelItemComponent
+                url={this.state.data.url + this.state.data.fetchEndPoint}
+                itemObj={item}
+                key={key}
+                onClick={(selectedObj) => {
+                  console.log("CAAAAALBACK 1:", selectedObj);
+                  this.props.funcs.popup(selectedObj);
+                }}
+              />
+            );
+          })}
+        </PanelContent>
       </Panel>
     );
   }
