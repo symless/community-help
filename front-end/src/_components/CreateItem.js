@@ -30,6 +30,18 @@ export default class CreateItemComponent extends React.Component {
 
   componentWillMount() {}
 
+  addItem() {
+    var obj = {
+      Title: "Help Needed in shopping",
+      Description: "Help shopping groceries",
+      ButtonTitle: "Help!",
+      ItemID: 1,
+      personalContact: "12341234",
+      status: 0,
+    };
+    this.props.funcs.addDummy(obj);
+  }
+
   render() {
     return (
       <Modal

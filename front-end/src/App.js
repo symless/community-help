@@ -11,7 +11,6 @@ import DetailLayoverComponent from "./_components/DetailLayover";
 import { Modal } from "./components/Modal";
 import CreateItemComponent from "./_components/CreateItem";
 
-
 // Status: 0=Open, 1=In Progress, 2=Closed
 const PanelData = {
   helps: {
@@ -54,7 +53,8 @@ const PanelData = {
     itemsObjList: [
       {
         Title: "Going Shopping on Saturday",
-        Description: "I'm going to the groceries store on Saturday. Let me know if I can fetch you anything!",
+        Description:
+          "I'm going to the groceries store on Saturday. Let me know if I can fetch you anything!",
         ButtonTitle: "Ask!",
         ItemID: 1,
         personalContact: "12341234",
@@ -192,7 +192,7 @@ function App1() {
 }
 
 // DAUN: App2() to test out my panels components
-export function AppDisplay({ funcs, ...props }) {
+export function AppDisplay({ selectedItem, funcs, ...props }) {
   return (
     <div className="App">
       {props.userInfo.username ? (
@@ -237,7 +237,10 @@ export function AppDisplay({ funcs, ...props }) {
       </div>
       {props.PopType == 1 && <AuthComponent funcs={funcs} />}
       {props.PopType == 2 && (
-        <DetailLayoverComponent funcs={funcs}></DetailLayoverComponent>
+        <DetailLayoverComponent
+          funcs={funcs}
+          item={selectedItem}
+        ></DetailLayoverComponent>
       )}
       {props.PopType == 3 && (
         <CreateItemComponent funcs={funcs}></CreateItemComponent>
@@ -271,7 +274,8 @@ class App extends React.Component {
 
   /// this function will be passed to panelItem.
   displayDetail = (obj) => {
-    console.log("App:: PopUp() => ", obj);
+    this.state.selectedItem.obj = obj;
+    this.setState({ selectedItem: this.state.selectedItem });
     if (this.state.PopType == 2) {
       this.setState({ PopType: 0 });
     } else {
@@ -322,6 +326,7 @@ class App extends React.Component {
         userInfo={this.state.user}
         funcs={this.funcs}
         PopType={this.state.PopType}
+        selectedItem={this.state.selectedItem}
       />
     );
   }

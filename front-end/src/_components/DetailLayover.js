@@ -22,7 +22,7 @@ export default class DetailLayoverComponent extends React.Component {
   }
 
   componentWillMount() {
-    console.log("DetailLayoverComponent", this.props.item);
+    console.log("DetailLayoverComponent", this.props.item.obj);
     // if (this.props.item.type == "Request") {
     //   this.setState({ isRequest: true });
     // } else {
@@ -46,7 +46,8 @@ export default class DetailLayoverComponent extends React.Component {
           this.props.funcs.displayDetail();
         }}
       >
-        Detail
+        {/* EXAMPLE USAGE */}
+        {this.props.item.obj.Title}
       </Modal>
     );
   }
