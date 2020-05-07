@@ -1,5 +1,5 @@
 import React from "react";
-
+import { PanelContent } from "../components/Panel";
 /*
     PanelItem Component contains as following prop:
     1. Title: String
@@ -13,22 +13,22 @@ import React from "react";
 
 */
 
-export default class Panelitem extends React.Component {
+export default class PanelItemComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.id,
-      title: this.props.Title,
-      desc: this.props.Description,
-      color: this.props.Color,
-      buttonTitle: this.props.ButtonTitle,
+      itemObj: this.props.itemObj,
     };
     this.request = this.request.bind(this);
   }
 
   componentWillMount() {
     // Fetch for the detail as component is getting loaded
-    this.request();
+    console.log(
+      "PanelItemComponent: (TODO) send request to:",
+      this.props.url + this.state.itemObj.ItemID
+    );
+    // this.request();
   }
 
   //TODO: create request for button interraction.
@@ -37,22 +37,16 @@ export default class Panelitem extends React.Component {
   //DAUN: Note that the getItem is optional since we might have all data from getList called from parent
   request() {
     // We should have prop URL, or have a connection as prop.
-    console.log("trying to get something from localhost");
-    fetch(this.props.url + "/" + this.props.id).then((response) => {
+    fetch(this.props.url + this.state.itemObj.ItemID).then((response) => {
       let resultObj = response.json();
       //TODO: once we fetch the item info, set missing field (atm it is desc)
-      this.setState({ id: resultObj.id });
-      this.setState({ title: resultObj.title });
-      this.setState({ desc: resultObj.description });
     });
   }
 
   render() {
     return (
       // Set classnames for the visual
-      <div className="to-be-implemented">
-        {/* TODO:  Set PanelItem information */}
-      </div>
+      <PanelContent>Random Text</PanelContent>
     );
   }
 }
