@@ -5,7 +5,6 @@
 #include "Server.h"
 #include "Person.h"
 #include "HelpRequest.h"
-#include "AssistanceProviding.h"
 
 nlohmann::json Server::getListHelpRequests() {
     nlohmann::json json;
@@ -15,8 +14,6 @@ nlohmann::json Server::getListHelpRequests() {
 nlohmann::json Server::getListAssistanceProvided() {
     return nlohmann::json();
 }
-
-
 
 nlohmann::json Server::postNewHelpRequest(const nlohmann::json &request) {
     nlohmann::json response;
@@ -39,60 +36,6 @@ nlohmann::json Server::postNewHelpRequest(const nlohmann::json &request) {
 
 nlohmann::json Server::postAssistHelpRequest(const nlohmann::json &request) {
     return nlohmann::json();
-}
-
-
-
-nlohmann::json Server::postNewAssistanceProviding(const nlohmann::json &request) {
-    nlohmann::json response;
-    AssistanceProviding* m_assist = new AssistanceProviding;
-
-    // The ID is just one plus the maximum size of the vector
-    // This data would be provided by the database
-    m_assist->id = m_AllAssistanceProviding.size()+1;
-    m_assist->title = request["title"];
-    m_assist->description = request["description"];
-    m_assist->provider = request["provider"];
-    m_assist->status = 0;
-
-    // Insert the help request in the help list.
-    m_AllAssistanceProviding.insert(std::make_pair(m_assist->id, m_help));
-    response["status"] = "Success";
-
-    return response;
-}
-
-    
-nlohmann::json postAcceptToHelp(const nlohmann::json& request) {
-    nlohmann::json response;
-    AssistanceProviding* m_assist = new AssistanceProviding;
-
-    std::string title ("Quick Assistance Provided to ");
-
-    int helpID = std::stoi(request["id"]);
-
-    //Retrieve the help object from the m_AllHelpRequests
-    HelpRequest* m_help = m_AllHelpRequests[id];
-
-    // Create a new assistance to instant match the help
-    m_assist->id = m_AllAssistanceProviding.size()+1;
-
-    // Relate the assistance to the help request
-    m_help->assistID = m_assist->id;
-    m_help->status  = 1; // In progress
-    // Composes the Title to let the help requester and assistance provider to know they are helping each other
-    m_assist->title = title + m_help->requester;
-
-    m_assist->description = request["description"];
-    m_assist->provider = request["provider"];
-    m_assist->status = 1;
-
-    // Insert the help request in the help list.
-    m_AllAssistanceProviding.insert(std::make_pair(m_assist->id, m_assist));
-
-    response["status"] = "Success";
-
-    return response;
 }
 
 nlohmann::json Server::login(const nlohmann::json &request) {
