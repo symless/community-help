@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "./components/Button";
 import "./App.scss";
 import { Panel, PanelTitle, PanelContent } from "./components/Panel";
+import { Task } from "./components/Task";
 
 function App() {
   return (
@@ -17,17 +18,59 @@ function App() {
       </header>
       <div className="row">
         <div className="col">
-          <Button color="blue">Ask for help</Button>
+          <Button color="blue" size="md">
+            Ask for help
+          </Button>
           <Panel color="blue">
             <PanelTitle>Help needed</PanelTitle>
-            <PanelContent>test</PanelContent>
+            <PanelContent>
+              <Task
+                title="I need a small amout of shopping"
+                subtitle="Asked 3hrs ago - Peel"
+                badge={
+                  <Button color="blue" size="sm">
+                    help
+                  </Button>
+                }
+              />
+              <Task
+                title="I need a small amout of shopping"
+                subtitle="Asked 3hrs ago - Peel"
+                badge={
+                  <Button color="blue" size="sm">
+                    help
+                  </Button>
+                }
+              />
+              <Task
+                title="I need a small amout of shopping"
+                subtitle="Asked 3hrs ago - Peel"
+                badge={
+                  <Button color="blue" size="sm">
+                    help
+                  </Button>
+                }
+              />
+            </PanelContent>
           </Panel>
         </div>
         <div className="col">
-          <Button color="purple">I want help</Button>
+          <Button color="purple" size="md">
+            I want help
+          </Button>
           <Panel color="purple">
             <PanelTitle>Help offered</PanelTitle>
-            <PanelContent>test</PanelContent>
+            <PanelContent>
+              <Task
+                title="Shopping"
+                subtitle="Available now in Peel"
+                badge={
+                  <Button color="purple" size="sm">
+                    help
+                  </Button>
+                }
+              />
+            </PanelContent>
           </Panel>
         </div>
       </div>
