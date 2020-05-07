@@ -6,7 +6,10 @@ import { Panel, PanelTitle, PanelContent } from "./components/Panel";
 import { Task } from "./components/Task";
 
 import PanelComponent from "./_components/Panel";
+import AuthComponent from "./_components/Auth";
+import DetailLayoverComponent from "./_components/DetailLayover";
 import { Modal } from "./components/Modal";
+
 
 const PanelData = {
   helps: {
@@ -20,6 +23,7 @@ const PanelData = {
         Description: "Description...",
         ButtonTitle: "Button 1",
         ItemID: 1,
+        personalContact: "12341234",
       },
     ],
   },
@@ -34,6 +38,7 @@ const PanelData = {
         Description: "Description...",
         ButtonTitle: "Button 1",
         ItemID: 1,
+        personalContact: "12341234",
       },
     ],
   },
@@ -185,7 +190,7 @@ export function AppDisplay({ funcs, ...props }) {
     </div>
   );
 }
-
+        
 //TODO: add a function to child that will set the state of App to display login
 class App extends React.Component {
   constructor(props) {
@@ -194,14 +199,29 @@ class App extends React.Component {
       user: {},
       didAuth: false,
       loginPop: false,
+      selectedItem: {
+        type: "Request",
+        obj: {},
+      },
     };
     this.Auth = {
+      someInfo: "info",
       needLogin: this.needLogin,
       setLogin: this.setLogin,
       displayLogin: this.displayLogin,
       logout: this.logout,
     };
+    this.showDetail = {
+      popup: this.popup,
+    };
   }
+
+  /// this function will be passed to panelItem.
+  popup = (obj) => {
+    console.log("App:: PopUp() => ", obj);
+    // this.state.selectedItems.obj = obj;
+    // this.setState({ selectedItems: this.selectedItems });
+  };
 
   /// this function will be passed on to loginComponent
   setLogin = (user) => {
@@ -209,13 +229,18 @@ class App extends React.Component {
     this.setState({ didAuth: true });
   };
 
-  logout = () => {
+  logout = (value) => {
     // TODO: send request to logout
+    console.log("LOGOUT REQUESTED", value);
   };
 
   // this function will be called by children to initiate login.
   displayLogin = () => {
     this.setState({ loginPop: true });
+  };
+
+  closeLogin = () => {
+    this.setState({ loginPop: false });
   };
 
   // this function will be called by child component (in AppDisplay) to check the Auth State
@@ -227,8 +252,55 @@ class App extends React.Component {
     }
   };
 
+  /// display Detail for either type = "Request" / "Assistance"
+  /// add obj to selected
+  displayPopup = (type, obj) => {
+    console.log("APP.JS:: displayPopup", type, " and ", obj);
+  };
+
   render() {
-    return <AppDisplay userInfo={this.state.user} funcs={this.Auth} />;
+    return (
+      <div className="App">
+        {this.state.userInfo ? (
+          <div>{/* TODO: create component for userinfo */}</div>
+        ) : (
+          <div>{/* TODO: Create component for login and register */}</div>
+        )}
+        <div className="background-gradiant" />
+        <header>
+          <h1 className="title">Help?</h1>
+          <h2 className="sub-title">Welcome to...</h2>
+          <p className="phrase">
+            a place where people in the community can help others and get help.
+          </p>
+        </header>
+        <div className="row">
+          <div className="col">
+            <Button color="blue">Ask for help</Button>
+            <PanelComponent
+              funcs={this.showDetail}
+              data={PanelData.helps}
+            ></PanelComponent>
+          </div>
+          <div className="col">
+            <Button color="purple">I want help</Button>
+            <PanelComponent
+              funcs={this.showDetail}
+              data={PanelData.offers}
+            ></PanelComponent>
+          </div>
+        </div>
+        {this.state.selectedItem.obj.id && (
+          <DetailLayoverComponent item={this.state.selectedItem} />
+        )}
+        {!this.state.userInfo && (
+          <div>
+            {/* TODO: if the user is not logged in, main page should contain Auth; otherwise, dont */}
+            <AuthComponent funcs={this.Auth} />
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
