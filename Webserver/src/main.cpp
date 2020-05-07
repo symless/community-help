@@ -3,7 +3,7 @@
 
 #include "configuration/configuration.h"
 #include "platforms/common/networking.hpp"
-
+#include "help/Server.h"
 
 
 int main()
@@ -12,6 +12,9 @@ int main()
 
 
     //Initilize everything
+
+    Server* m_helpServer = new Server;
+
     std::cout << " Done." << std::endl;
     //Main loop
 
@@ -62,7 +65,7 @@ int main()
         return json.dump(4);
         // Process the string to retrieve the proper parameters
         // retrieves or instatiates the resources to call
-        return App->help(string)
+        //return App->help(string)
 
     });
 
@@ -70,7 +73,7 @@ int main()
      * @brief Registers an assistance entry in the system
      * 
      */
-    networking::registerAPICommand("/assist", [](const std::string& string)->std::string
+    networking::registerAPICommand("/assist", [m_helpServer](const std::string& string)->std::string
     {
         nlohmann::json json = {};
         json.push_back("hello World");
@@ -103,11 +106,10 @@ int main()
      * @brief 
      * //TODO: Implement the behavior
      */
-    networking::registerAPICommand("/signup", [](const std::string& string)->std::string
+    networking::registerAPICommand("/signup", [m_helpServer](const std::string& string)->std::string
     {
-        nlohmann::json json = {};
-        json.push_back("hello World");
-        return json.dump(4);
+        nlohmann::json json = nlohmann::json::parse(string);
+        return m_helpServer->signup(json).dump(4);
     });
 
     /**
