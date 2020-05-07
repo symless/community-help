@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button } from "./components/Button";
 import "./App.scss";
@@ -6,6 +6,7 @@ import { Panel, PanelTitle, PanelContent } from "./components/Panel";
 import { Task } from "./components/Task";
 
 import PanelComponent from "./_components/Panel";
+import { Modal } from "./components/Modal";
 
 const PanelData = {
   helps: {
@@ -40,6 +41,8 @@ const PanelData = {
 
 // import { Panel2}
 function App1() {
+  const [active, setModalActive] = useState(false);
+
   return (
     <div className="App">
       <div className="background-gradiant" />
@@ -52,7 +55,7 @@ function App1() {
       </header>
       <div className="row">
         <div className="col">
-          <Button color="blue" size="md">
+          <Button color="blue" size="md" onClick={() => setModalActive(true)}>
             Ask for help
           </Button>
           <Panel color="blue">
@@ -62,7 +65,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -71,7 +74,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -80,7 +83,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -98,9 +101,10 @@ function App1() {
               <Task
                 title="Shopping"
                 subtitle="Available now in Peel"
+                color="purple"
                 badge={
-                  <Button color="purple" size="sm">
-                    help
+                  <Button color="purple" size="sm" outline={true}>
+                    ask
                   </Button>
                 }
               />
@@ -108,12 +112,46 @@ function App1() {
           </Panel>
         </div>
       </div>
+      <Modal active={active} onDismiss={() => setModalActive(false)}>
+        <Panel color="blue">
+          <PanelTitle>Help needed</PanelTitle>
+          <PanelContent>
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+          </PanelContent>
+        </Panel>
+      </Modal>
     </div>
   );
 }
 
 // DAUN: App2() to test out my panels components
-export function AppDisplay(funcs) {
+export function AppDisplay({ funcs, ...props }) {
   return (
     <div className="App">
       {props.userInfo ? (
