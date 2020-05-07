@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button } from "./components/Button";
 import "./App.scss";
@@ -8,6 +8,8 @@ import { Task } from "./components/Task";
 import PanelComponent from "./_components/Panel";
 import AuthComponent from "./_components/Auth";
 import DetailLayoverComponent from "./_components/DetailLayover";
+import { Modal } from "./components/Modal";
+
 
 const PanelData = {
   helps: {
@@ -44,6 +46,8 @@ const PanelData = {
 
 // import { Panel2}
 function App1() {
+  const [active, setModalActive] = useState(false);
+
   return (
     <div className="App">
       <div className="background-gradiant" />
@@ -56,7 +60,7 @@ function App1() {
       </header>
       <div className="row">
         <div className="col">
-          <Button color="blue" size="md">
+          <Button color="blue" size="md" onClick={() => setModalActive(true)}>
             Ask for help
           </Button>
           <Panel color="blue">
@@ -66,7 +70,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -75,7 +79,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -84,7 +88,7 @@ function App1() {
                 title="I need a small amout of shopping"
                 subtitle="Asked 3hrs ago - Peel"
                 badge={
-                  <Button color="blue" size="sm">
+                  <Button color="blue" size="sm" outline={true}>
                     help
                   </Button>
                 }
@@ -102,9 +106,10 @@ function App1() {
               <Task
                 title="Shopping"
                 subtitle="Available now in Peel"
+                color="purple"
                 badge={
-                  <Button color="purple" size="sm">
-                    help
+                  <Button color="purple" size="sm" outline={true}>
+                    ask
                   </Button>
                 }
               />
@@ -112,10 +117,80 @@ function App1() {
           </Panel>
         </div>
       </div>
+      <Modal active={active} onDismiss={() => setModalActive(false)}>
+        <Panel color="blue">
+          <PanelTitle>Help needed</PanelTitle>
+          <PanelContent>
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+            <Task
+              title="I need a small amout of shopping"
+              subtitle="Asked 3hrs ago - Peel"
+              badge={
+                <Button color="blue" size="sm" outline={true}>
+                  help
+                </Button>
+              }
+            />
+          </PanelContent>
+        </Panel>
+      </Modal>
     </div>
   );
 }
 
+// DAUN: App2() to test out my panels components
+export function AppDisplay({ funcs, ...props }) {
+  return (
+    <div className="App">
+      {props.userInfo ? (
+        <div>{/* TODO: create component for userinfo */}</div>
+      ) : (
+        <div>{/* TODO: Create component for login and register */}</div>
+      )}
+      <div className="background-gradiant" />
+      <header>
+        <h1 className="title">Help?</h1>
+        <h2 className="sub-title">Welcome to...</h2>
+        <p className="phrase">
+          a place where people in the community can help others and get help.
+        </p>
+      </header>
+      <div className="row">
+        <div className="col">
+          <Button color="blue">Ask for help</Button>
+          <PanelComponent funcs={funcs} data={PanelData.helps}></PanelComponent>
+        </div>
+        <div className="col">
+          <Button color="purple">I want help</Button>
+          <PanelComponent data={PanelData.offers}></PanelComponent>
+        </div>
+      </div>
+      {!props.userInfo && (
+        <div>
+          {/* TODO: if the user is not logged in, main page should contain Auth; otherwise, dont */}
+        </div>
+      )}
+    </div>
+  );
+}
+        
 //TODO: add a function to child that will set the state of App to display login
 class App extends React.Component {
   constructor(props) {
