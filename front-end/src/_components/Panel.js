@@ -1,7 +1,8 @@
 import React from "react";
 
-import PanelItem from "./PanelItem";
+import { Panel, PanelTitle } from "../components/Panel";
 
+import PanelItemComponent from "./PanelItem";
 /*
     Panel Component contains as following prop:
     1. Title: String
@@ -20,14 +21,24 @@ import PanelItem from "./PanelItem";
 
 */
 
-export default class Panel extends React.Component {
+/*
+    PanelItem Component contains as following prop:
+    1. Title: String
+    2. Description: String
+    3. Color: String
+    4. ButtonTitle: String
+    5. ItemID: String
+
+    PanelItem Component contains following function:
+    1. request(id) -> ItemDetailObj
+
+*/
+
+export default class PanelComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.Title,
-      color: this.props.Color,
-      requestEndPoint: this.props.RequestEndPoint,
-      itemsObjList: [],
+      data: this.props.data,
       filteredList: [],
     };
     this.getItemsList = this.getItemsList.bind(this);
@@ -35,46 +46,56 @@ export default class Panel extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({ title: this.props.title });
-    this.setState({ color: this.props.color });
-    this.setState({ requestEndPoint: this.props.RequestEndPoint });
-    this.getItemsList();
+    console.log("NEEDS LOGIN data:", this.props.funcs);
+    this.setState({ filteredList: this.props.data.itemsObjList });
+    console.log(
+      "Attempt to send request to:",
+      this.props.data.url + this.props.data.fetchEndPoint
+    );
+    // this.getItemsList();
   }
 
   getItemsList() {
     // we should have prop URL, or have a connection as prop.
-    fetch(this.props.url + this.fetchEndPoint).then((response) => {
-      var resultObj = response.json();
-      this.setState({ itemsObjList: resultObj });
-    });
+    fetch(this.props.data.url + this.props.data.fetchEndPoint).then(
+      (response) => {
+        var resultObj = response.json();
+        this.state.data.itemsObjList = resultObj;
+        this.setState({ data: this.state.data });
+      }
+    );
   }
 
   search(text) {
     var filteredList;
     if (text === "") {
       // if the text keyword is empty, set to default
-      filteredList = this.state.itemsObjList;
+      filteredList = this.state.data.itemsObjList;
     } else {
-      filteredList = this.state.itemsObjList.filter((obj) => {
+      filteredList = this.state.data.itemsObjList.filter((obj) => {
         let title = obj.title;
         let keyword = obj.keyword;
         return title.includes(text) || keyword.includes(text);
       });
     }
-    // this.setState({fil})
+    this.setState({ filteredList: filteredList });
   }
 
   render() {
     return (
-      <div className="to-be-implemented">
-        {/* There should be some header, filter here */}
-        {/* TODO: Add content for the PanelComponent */}
-        {/* TODO: perhaps create filter as its own object too? */}
-        {this.state.title}
-        {this.state.filteredList.map((item) => (
-          <PanelItem url={this.props.url + this.props.endpoint} id={item.id} />
-        ))}
-      </div>
+      <Panel color={this.state.data.color}>
+        <PanelTitle>{this.state.data.title}</PanelTitle>
+        {this.state.filteredList.map((item, key) => {
+          console.log("item:", item);
+          return (
+            <PanelItemComponent
+              url={this.state.data.url + this.state.data.fetchEndPoint}
+              itemObj={item}
+              key={key}
+            />
+          );
+        })}
+      </Panel>
     );
   }
 }
