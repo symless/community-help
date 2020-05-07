@@ -52,9 +52,10 @@ export default class PanelItemComponent extends React.Component {
       <Task
         title={this.props.itemObj.Title}
         subtitle={this.props.itemObj.Description}
+        color={this.props.color}
         badge={
           <Button
-            color="blue"
+            color={this.props.color}
             size="sm"
             onClick={() => {
               console.log("hmmmm....");

@@ -11,6 +11,8 @@ import DetailLayoverComponent from "./_components/DetailLayover";
 import { Modal } from "./components/Modal";
 import CreateItemComponent from "./_components/CreateItem";
 
+
+// Status: 0=Open, 1=In Progress, 2=Closed
 const PanelData = {
   helps: {
     title: "Ask for Help",
@@ -19,11 +21,28 @@ const PanelData = {
     fetchEndPoint: "help_requests/",
     itemsObjList: [
       {
-        Title: "Task 1",
-        Description: "Description...",
-        ButtonTitle: "Button 1",
+        Title: "Help Needed in shopping",
+        Description: "Help shopping groceries",
+        ButtonTitle: "Help!",
         ItemID: 1,
         personalContact: "12341234",
+        status: 0,
+      },
+      {
+        Title: "Help Picking up Medicines",
+        Description: "I Need someone to fetch some medicines at the drugstore",
+        ButtonTitle: "Help!",
+        ItemID: 2,
+        personalContact: "43214321",
+        status: 0,
+      },
+      {
+        Title: "Assistance with Math Education",
+        Description: "I need someone to teach me math!",
+        ButtonTitle: "Help!",
+        ItemID: 1,
+        personalContact: "3141564",
+        status: 0,
       },
     ],
   },
@@ -34,11 +53,28 @@ const PanelData = {
     fetchEndPoint: "assistance_provided/",
     itemsObjList: [
       {
-        Title: "Offer 1",
-        Description: "Description...",
-        ButtonTitle: "Button 1",
+        Title: "Going Shopping on Saturday",
+        Description: "I'm going to the groceries store on Saturday. Let me know if I can fetch you anything!",
+        ButtonTitle: "Ask!",
         ItemID: 1,
         personalContact: "12341234",
+        status: 0,
+      },
+      {
+        Title: "Math Classes",
+        Description: "I have some spare time to assist with math education!",
+        ButtonTitle: "Ask!",
+        ItemID: 2,
+        personalContact: "123581321",
+        status: 0,
+      },
+      {
+        Title: "Violin Classes",
+        Description: "I am offering violin lessons via video call.",
+        ButtonTitle: "Ask!",
+        ItemID: 3,
+        personalContact: "34125621",
+        status: 0,
       },
     ],
   },
