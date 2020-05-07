@@ -111,9 +111,8 @@ int main()
      */
     networking::registerAPICommand("/accept_help", [](const std::string& string)->std::string
     {
-        nlohmann::json json = {};
-        json.push_back("hello World");
-        return json.dump(4);
+        nlohmann::json json = nlohmann::json::parse(string);
+        return m_helpServer->postAcceptToHelp(json).dump(4);
     });
 
     networking::registerAPICommand("/select_assistance", [](const std::string& string)->std::string
