@@ -28,7 +28,7 @@ nlohmann::json Server::postNewHelpRequest(const nlohmann::json &request) {
     m_help->status = 0;
 
     // Insert the help request in the help list.
-    m_AllHelpRequests.insert(std::make_pair(m_help->id, m_help))
+    m_AllHelpRequests.insert(std::make_pair(m_help->id, m_help));
     response["status"] = "Success";
 
     return response;

@@ -58,7 +58,7 @@ int main()
      * @brief Registers a help entry in the system
      * //TODO: Implement the behavior
      */
-    networking::registerAPICommand("/help", [](const std::string& string)->std::string
+    networking::registerAPICommand("/help", [m_helpServer](const std::string& string)->std::string
     {
         nlohmann::json json = nlohmann::json::parse(string);
         return m_helpServer->postNewHelpRequest(json).dump(4);
