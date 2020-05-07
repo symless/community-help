@@ -15,8 +15,8 @@ class Server {
 
 public:
 
-    nlohmann::json getListHelpRequests();
-    nlohmann::json getListAssistanceProvided();
+    nlohmann::json getListHelpRequests(const nlohmann::json &request);
+    nlohmann::json getListAssistanceProvided(const nlohmann::json &request);
 
     nlohmann::json postNewHelpRequest(const nlohmann::json& request);
     nlohmann::json postAssistHelpRequest(const nlohmann::json& request);
@@ -35,6 +35,10 @@ private:
     std::map<int, HelpRequest*> m_AllHelpRequests;
     std::map<std::string, Person*> m_AllUsers;
 
+    std::map<int, Person*> m_sessions;
+
+    //TODO Make session id a random ascii string that cant be guessed
+    static int s_nextSessionId;
 };
 
 

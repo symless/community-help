@@ -36,11 +36,10 @@ int main()
      * @brief Return the  list of (open) helps registered in the system
      * //TODO: Code the behavior
      */
-    networking::registerAPICommand("/help_requests", [](const std::string& string)->std::string
+    networking::registerAPICommand("/help_requests", [m_helpServer](const std::string& string)->std::string
     {
-        nlohmann::json json = {};
-        json.push_back("hello help_requests");
-        return json.dump(4);
+        nlohmann::json json;
+        return m_helpServer->getListHelpRequests(json).dump(4);
     });
 
     /**

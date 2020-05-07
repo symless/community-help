@@ -6,12 +6,28 @@
 #include "Person.h"
 #include "HelpRequest.h"
 
-nlohmann::json Server::getListHelpRequests() {
+int Server::s_nextSessionId = 0;
+
+nlohmann::json Server::getListHelpRequests(const nlohmann::json &request) {
     nlohmann::json json;
-    return nlohmann::json();
+
+    //TODO Check session for auth
+
+    for (auto i = m_AllHelpRequests.begin(); i != m_AllHelpRequests.end(); i++)
+    {
+        nlohmann::json item;
+        item["id"] = i->second->id;
+        item["description"] = i->second->description;
+        item["requester"] = i->second->requester;
+        item["status"] = i->second->status;
+
+        json.push_back(item);
+    }
+
+    return json;
 }
 
-nlohmann::json Server::getListAssistanceProvided() {
+nlohmann::json Server::getListAssistanceProvided(const nlohmann::json &request) {
     return nlohmann::json();
 }
 
@@ -44,7 +60,10 @@ nlohmann::json Server::login(const nlohmann::json &request) {
 
     if (user != m_AllUsers.end() &&
         user->second->password == request["password"]){
+        int session = s_nextSessionId++;
+        m_sessions.insert(std::make_pair(session, user->second));
         response["status"] = "Success";
+        response["session_id"] = session;
     }
     else if (user != m_AllUsers.end())
     {
@@ -76,8 +95,12 @@ nlohmann::json Server::signup(const nlohmann::json &request) {
 
 
     if (m_AllUsers.find(m_person->email) == m_AllUsers.end()){
+        int session = s_nextSessionId++;
+
         m_AllUsers.insert(std::make_pair(m_person->email, m_person));
+        m_sessions.insert(std::make_pair(session, m_person));
         response["status"] = "Success";
+        response["session_id"] = session;
     }
     else
     {
