@@ -16,11 +16,6 @@
 
   transition: all 250ms ease-in-out;
 
-  &:hover {
-    background-color: white !important;
-    color: #2f2f40 !important;
-  }
-
   &:focus {
     outline: none;
   }
@@ -45,9 +40,39 @@
 
   &.btn-blue {
     background-color: #4285f4;
+
+    &:hover {
+      background-color: white;
+      color: #203b7e;
+    }
+
+    &.btn-outline {
+      background-color: white;
+      color: #203b7e;
+
+      &:hover {
+        color: white;
+        background-color: #4285f4;
+      }
+    }
   }
 
   &.btn-purple {
     background-color: #8642f4;
+
+    &:hover {
+      background-color: white;
+      color: #2f2f40;
+    }
+
+    &.btn-outline {
+      background-color: white;
+      color: #2f2f40;
+
+      &:hover {
+        color: white;
+        background-color: #8642f4;
+      }
+    }
   }
 }

@@ -7,6 +7,8 @@ import { Task } from "./components/Task";
 
 import PanelComponent from "./_components/Panel";
 import { Modal } from "./components/Modal";
+import { TextInput } from "./components/TextInput";
+import { VerticalForm, LabeledInput } from "./components/VerticalForm";
 
 const PanelData = {
   helps: {
@@ -116,33 +118,24 @@ function App1() {
         <Panel color="blue">
           <PanelTitle>Help needed</PanelTitle>
           <PanelContent>
-            <Task
-              title="I need a small amout of shopping"
-              subtitle="Asked 3hrs ago - Peel"
-              badge={
-                <Button color="blue" size="sm" outline={true}>
-                  help
-                </Button>
-              }
-            />
-            <Task
-              title="I need a small amout of shopping"
-              subtitle="Asked 3hrs ago - Peel"
-              badge={
-                <Button color="blue" size="sm" outline={true}>
-                  help
-                </Button>
-              }
-            />
-            <Task
-              title="I need a small amout of shopping"
-              subtitle="Asked 3hrs ago - Peel"
-              badge={
-                <Button color="blue" size="sm" outline={true}>
-                  help
-                </Button>
-              }
-            />
+            <VerticalForm>
+              <TextInput
+                placeholder="Describe what you need?"
+                type="textarea"
+              />
+              <LabeledInput title="Name">
+                <TextInput placeholder="Your Name" />
+              </LabeledInput>
+              <LabeledInput title="Post code">
+                <TextInput placeholder="Post code" />
+              </LabeledInput>
+              <LabeledInput title="House name/no">
+                <TextInput placeholder="House name or number" />
+              </LabeledInput>
+              <LabeledInput title="Phone number">
+                <TextInput placeholder="Contact number" />
+              </LabeledInput>
+            </VerticalForm>
           </PanelContent>
         </Panel>
       </Modal>
@@ -232,4 +225,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App1;

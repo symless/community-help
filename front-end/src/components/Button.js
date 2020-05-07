@@ -26,6 +26,7 @@ export const Button = forwardRef(
       className={classNames(
         "btn",
         {
+          "btn-outline": outline,
           [`btn-${color}`]: color,
           [`btn-${size}`]: size,
         },
