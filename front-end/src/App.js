@@ -73,6 +73,11 @@ function App1() {
 export function AppDisplay(funcs) {
   return (
     <div className="App">
+      {props.userInfo ? (
+        <div>{/* TODO: create component for userinfo */}</div>
+      ) : (
+        <div>{/* TODO: Create component for login and register */}</div>
+      )}
       <div className="background-gradiant" />
       <header>
         <h1 className="title">Help?</h1>
@@ -91,6 +96,11 @@ export function AppDisplay(funcs) {
           <PanelComponent data={PanelData.offers}></PanelComponent>
         </div>
       </div>
+      {!props.userInfo && (
+        <div>
+          {/* TODO: if the user is not logged in, main page should contain Auth; otherwise, dont */}
+        </div>
+      )}
     </div>
   );
 }
@@ -108,6 +118,7 @@ class App extends React.Component {
       needLogin: this.needLogin,
       setLogin: this.setLogin,
       displayLogin: this.displayLogin,
+      logout: this.logout,
     };
   }
 
@@ -115,6 +126,10 @@ class App extends React.Component {
   setLogin = (user) => {
     this.setState({ user: user });
     this.setState({ didAuth: true });
+  };
+
+  logout = () => {
+    // TODO: send request to logout
   };
 
   // this function will be called by children to initiate login.
@@ -132,7 +147,7 @@ class App extends React.Component {
   };
 
   render() {
-    return <AppDisplay funcs={this.Auth} />;
+    return <AppDisplay userInfo={this.state.user} funcs={this.Auth} />;
   }
 }
 
