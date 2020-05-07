@@ -19,21 +19,6 @@
   src: url("./assets/SourceSansPro-Regular.ttf");
 }
 
-.title {
-  margin-top: 143px;
-  margin-bottom: 0px;
-}
-
-.sub-title {
-  margin-top: 76px;
-  margin-bottom: 0px;
-}
-
-.phrase {
-  margin-top: 21px;
-  margin-bottom: 55px;
-}
-
 h1 {
   font-family: Leckerli One;
   font-style: normal;
@@ -83,6 +68,23 @@ p {
 
 .App {
   color: white;
+
+  header {
+    .title {
+      margin-top: 143px;
+      margin-bottom: 0px;
+    }
+
+    .sub-title {
+      margin-top: 76px;
+      margin-bottom: 0px;
+    }
+
+    .phrase {
+      margin-top: 21px;
+      margin-bottom: 55px;
+    }
+  }
 
   .background-gradiant {
     position: absolute;

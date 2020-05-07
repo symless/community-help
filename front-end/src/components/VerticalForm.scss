@@ -1,0 +1,35 @@
+.vertical-form {
+  textarea.text-input {
+    margin-bottom: 32px;
+    min-height: 90px;
+  }
+
+  & > .row {
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    label {
+      display: table;
+      width: 100%;
+
+      input {
+        display: table-cell;
+      }
+
+      .title {
+        display: table-cell;
+        text-align: left;
+        font-family: Source Sans Pro;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 24px;
+        width: 160px;
+      }
+    }
+  }
+}
