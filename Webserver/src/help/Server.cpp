@@ -4,6 +4,7 @@
 
 #include "Server.h"
 #include "Person.h"
+#include "HelpRequest.h"
 
 nlohmann::json Server::getListHelpRequests() {
     nlohmann::json json;
@@ -15,7 +16,22 @@ nlohmann::json Server::getListAssistanceProvided() {
 }
 
 nlohmann::json Server::postNewHelpRequest(const nlohmann::json &request) {
-    return nlohmann::json();
+    nlohmann::json response;
+    HelpRequest* m_help = new HelpRequest;
+
+    
+    // The ID is just one plus the maximum size of the vector
+    // This data would be provided by the database
+    m_help->id = m_AllHelpRequests.size()+1;
+    m_help->description = request["description"];
+    m_help->requester = request["requester"];
+    m_help->status = 0;
+
+    // Insert the help request in the help list.
+    m_AllHelpRequests.insert(std::make_pair(m_help->id, m_help))
+    response["status"] = "Success";
+
+    return response;
 }
 
 nlohmann::json Server::postAssistHelpRequest(const nlohmann::json &request) {

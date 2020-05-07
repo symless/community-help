@@ -12,6 +12,7 @@ struct HelpRequest {
     int id;
     std::string description;
     std::string requester;
+    std::int status; // TODO: Work an enum for Open=0, Canceled=1, Closed=2
 };
 
 
