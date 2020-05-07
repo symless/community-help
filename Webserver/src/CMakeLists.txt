@@ -6,6 +6,7 @@ cmake_minimum_required (VERSION 3.8)
 
 add_subdirectory(configuration)
 add_subdirectory(platforms)
+add_subdirectory(help)
 
 set(sources
 	main.cpp
@@ -13,6 +14,6 @@ set(sources
 
 # Add source to this project's executable.
 add_executable (service ${sources}  )
-target_link_libraries (service configuration platform)
+target_link_libraries (service configuration help_server platform)
 
 

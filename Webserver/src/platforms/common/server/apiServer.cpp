@@ -141,7 +141,7 @@ void apiServer::handle_request(beast::string_view doc_root, http::request<Body, 
         return res;
     };
 
-    // Returns a server error response
+    // Returns a Server error response
     auto const server_error =
         [&req](beast::string_view what)
     {
