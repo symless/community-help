@@ -3,7 +3,6 @@ import { Modal } from "../components/Modal";
 
 import RegisterComponent from "./Register";
 import LoginComponent from "./Login";
-
 /*  Login Component:
     TODO: needs followi
 
@@ -33,13 +32,20 @@ export default class AuthComponent extends React.Component {
     };
   }
 
-  // Login function sends request on the form
+  componentWillMount() {
+    this.props.funcs.logout("hello");
+  }
+
+  // login gets passed down to LoginComponent, receives the form
+  // passes the form to parent to send info
   login = (form) => {
-    this.props.funcs.setLogin("hello");
+    console.log("AuthComponent: Login Function input :", form);
   };
 
+  // register gets passed down to RegisterComponent, receives the form
+  // passes the form to parent to send info
   register = (form) => {
-    this.props.funcs.setRegister("hello");
+    console.log("AuthComponent: Register Function input :", form);
   };
 
   render() {

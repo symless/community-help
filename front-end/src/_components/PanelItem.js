@@ -1,5 +1,7 @@
 import React from "react";
-import { PanelContent } from "../components/Panel";
+
+import { Task } from "../components/Task";
+import { Button } from "../components/Button";
 /*
     PanelItem Component contains as following prop:
     1. Title: String
@@ -24,6 +26,7 @@ export default class PanelItemComponent extends React.Component {
 
   componentWillMount() {
     // Fetch for the detail as component is getting loaded
+    console.log("PanelItemComponent: ", this.state.itemObj);
     console.log(
       "PanelItemComponent: (TODO) send request to:",
       this.props.url + this.state.itemObj.ItemID
@@ -46,7 +49,22 @@ export default class PanelItemComponent extends React.Component {
   render() {
     return (
       // Set classnames for the visual
-      <PanelContent>Random Text</PanelContent>
+      <Task
+        title={this.props.itemObj.Title}
+        subtitle={this.props.itemObj.Description}
+        badge={
+          <Button
+            color="blue"
+            size="sm"
+            onClick={() => {
+              console.log("hmmmm....");
+              this.props.onClick(this.state.itemObj);
+            }}
+          >
+            {this.props.itemObj.ButtonTitle}
+          </Button>
+        }
+      />
     );
   }
 }

@@ -36,7 +36,9 @@ export default class RegisterComponent extends React.Component {
     };
   }
 
-  register = (form) => {};
+  requestRegister = () => {
+    this.props.funcs(this.state.registerForm);
+  };
 
   render() {
     return <Panel color={"purple"}></Panel>;
